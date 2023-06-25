@@ -1,34 +1,35 @@
-const task=require("../models/task-model");
+const task = require("../models/task-model");
 
-//adding new task
-const addTask= async((req, res)=>{
-    const{
-        title,
-        description,
-        status
-    }=req.body;
+// Adding a new task
+const addTask = async (req, res) => {
+  const { title, description, status } = req.body;
 
-    const newTask = new task({
-        title,
-        description,
-        status
-    });
+  const newTask = new task({
+    title,
+    description,
+    status
+  });
+  try {
+    await newTask.save();
+    res.json("New Task Added.");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Error adding task.");
+  }
+};
 
-    newTask.save().then(()=>{
-        res.json("New Task Added .. ");
-    }).catch((error)=>{
-        console.log("error");
-    });
-})
+// Get all tasks
+const getAllTasks = async (req, res) => {
+  try {
+    const tasks = await task.find();
+    res.json(tasks);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("Error retrieving tasks.");
+  }
+};
 
-//get all tasks
-const getAllTasks= async((req, res)=>{
-    task.find().then((task)=>{
-        res.json(task);
-    }).catch((error)=>{
-        console.log("error");
-    })
-})
-
-exports.addTask=addTask;
-exports.getAllTasks=getAllTasks;
+module.exports = {
+  addTask,
+  getAllTasks
+};

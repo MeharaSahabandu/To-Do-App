@@ -1,13 +1,18 @@
-import { useState } from 'react'
 import './App.css'
-import {Router, Routes, Route} from "react-router-dom";
-//import header from "./components/header";
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Navbar from "./components/Navbar";
 
 function App() {
 
   return (
 
-    <div>yo</div>
+    <BrowserRouter>
+      <div className='App'>
+      <Routes>
+        <Route path="/" element={<Navbar/>}/>
+      </Routes>
+      </div>
+    </BrowserRouter>
   )
 }
 

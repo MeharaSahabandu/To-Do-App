@@ -1,18 +1,19 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-const TaskSchema = new Schema({
-  title: {
+const UserSchema = new Schema({
+  name: {
     type: String,
     required: true
   },
-  description: {
-    type: String
+  username: {
+    type: String,
+    required:true
   },
-  status: {
+  password: {
     type: Number,
     required: true
-  }
+  },
 });
 
 const Task = mongoose.model("Task", TaskSchema);
